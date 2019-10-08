@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
 import { OidcDataService } from '../data-services/oidc-data.service';
 import { IFrameService } from '../services/existing-iframe.service';
 import { EqualityHelperService } from '../services/oidc-equality-helper.service';
@@ -14,9 +14,11 @@ import { BrowserStorage, OidcSecurityStorage } from '../services/oidc.security.s
 import { OidcSecurityUserService } from '../services/oidc.security.user-service';
 import { OidcSecurityValidation } from '../services/oidc.security.validation';
 
+export const TOKEN_CONFIG = new InjectionToken<OidcSecurityStorage>('forRoot() configuration');
+
 @NgModule()
 export class AuthModule {
-    static forRoot(token: Token = {}): ModuleWithProviders {
+    static forRoot(token?: Token): ModuleWithProviders {
         return {
             ngModule: AuthModule,
             providers: [
@@ -34,16 +36,25 @@ export class AuthModule {
                 OidcDataService,
                 StateValidationService,
                 {
+                    provide: TOKEN_CONFIG,
+                    useValue: token,
+                },
+                {
                     provide: OidcSecurityStorage,
-                    useClass: token.storage || BrowserStorage,
+                    useFactory: provideSecurityStorage,
+                    deps: [TOKEN_CONFIG, BrowserStorage],
                 },
             ],
         };
     }
 }
 
+export function provideSecurityStorage(defaultStorage: BrowserStorage, token: Token): OidcSecurityStorage {
+    return token ? token.storage : defaultStorage;
+}
+
 export interface Type<T> extends Function {
-    new (...args: any[]): T;
+    new(...args: any[]): T;
 }
 
 export interface Token {
