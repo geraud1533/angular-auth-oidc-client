@@ -1,18 +1,18 @@
 {
-    "name": "angular-auth-oidc-client",
+    "name": "angular-auth-oidc-client-tmp8",
     "peerDependencies": {
-        "rxjs": ">= 6.0.0",
-        "@angular/core": ">= 6.0.0",
         "@angular/common": ">= 6.0.0",
-        "@angular/router": ">= 6.0.0"
+        "@angular/core": ">= 6.0.0",
+        "@angular/router": ">= 6.0.0",
+        "rxjs": ">= 6.0.0"
     },
     "dependencies": {
-        "tslib": "^1.9.0",
-        "jsrsasign-reduced": "8.0.12"
+        "jsrsasign-reduced": "8.0.12",
+        "tslib": "^1.9.0"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/damienbod/angular-auth-oidc-client.git"
+        "url": "https://github.com/geraud1533/angular-auth-oidc-client.git"
     },
     "bugs": {
         "url": "https://github.com/damienbod/angular-auth-oidc-client/issues"
@@ -27,6 +27,6 @@
         "typescript"
     ],
     "license": "MIT",
-    "version": "10.0.10",
+    "version": "10.0.12",
     "description": "An OpenID Connect Code Flow with PKCE,Implicit Flow client for Angular"
 }

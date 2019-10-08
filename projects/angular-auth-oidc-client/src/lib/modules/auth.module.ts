@@ -49,8 +49,11 @@ export class AuthModule {
     }
 }
 
-export function provideSecurityStorage(defaultStorage: BrowserStorage, token: Token): OidcSecurityStorage {
-    return token ? token.storage : defaultStorage;
+export function provideSecurityStorage(defaultStorage: BrowserStorage, token?: Token): OidcSecurityStorage {
+    if (token && token.storage) {
+        return token.storage as any as OidcSecurityStorage;
+    }
+    return defaultStorage;
 }
 
 export interface Type<T> extends Function {
